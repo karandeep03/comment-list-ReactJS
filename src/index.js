@@ -1,12 +1,53 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import faker from 'faker';
+import Comment from  './components/Comment';
+import ApprovalCard from './components/ApprovalCard';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+class App extends React.Component {
+    state = {
+        image: faker.image.avatar(),
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        comment: "It's Awesome :)",
+        date: faker.date.past().toString()
+    }
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+    render() {
+
+        return (
+            <div className='ui container comments'>
+                <ApprovalCard>
+                    <h4>Warning!</h4>
+                    Are you sure you want to do this ?
+                </ApprovalCard>
+                <ApprovalCard>
+                    <Comment 
+                        author="Sam" 
+                        timeAgo="Today at 4:45PM" 
+                        content = "Nice Blog Post!" 
+                        avatar={faker.image.avatar()}
+                    />
+                </ApprovalCard>
+                <ApprovalCard>
+                    <Comment 
+                        author="Alex" 
+                        timeAgo="Today at 2:00AM" 
+                        content = "I like the subject" 
+                        avatar={faker.image.avatar()}
+                    />
+                </ApprovalCard>
+                <ApprovalCard>
+                    <Comment 
+                        author="Jane" 
+                        timeAgo="Yesterday at 5:00PM" 
+                        content = "I like the writing" 
+                        avatar={faker.image.avatar()}
+                    />
+                </ApprovalCard>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<App />, document.querySelector('#root'));
